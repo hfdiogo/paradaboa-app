@@ -1,15 +1,14 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPhoneNumber } from "firebase/auth";
 
-// ⬇️ COLE AQUI EXATAMENTE o mesmo objeto firebaseConfig
-// que o Console do Firebase te mostrou (apiKey, authDomain, projectId, etc.)
+// Configuração real do Firebase (vinda do Console)
 export const firebaseConfig = {
-  // apiKey: "COPIE DA SUA TELA",
-  // authDomain: "COPIE DA SUA TELA",
-  // projectId: "COPIE DA SUA TELA",
-  // storageBucket: "COPIE DA SUA TELA",
-  // messagingSenderId: "COPIE DA SUA TELA",
-  // appId: "COPIE DA SUA TELA"
+  apiKey: "AIzaSyBfgfLE-VkuaHVandmtQjtf_HPcP4bmpIc",
+  authDomain: "parada-boa.firebaseapp.com",
+  projectId: "parada-boa",
+  storageBucket: "parada-boa.appspot.com",
+  messagingSenderId: "824921482345",
+  appId: "1:824921482345:web:d060634e5adeb2e579eef8"
 };
 
 // Inicializa Firebase
