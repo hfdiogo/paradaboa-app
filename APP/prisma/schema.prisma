@@ -1,0 +1,95 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+model users {
+  id         String   @id
+  name       String
+  phone      String   @unique
+  avatar_url String?
+  role       Role
+  rating     Decimal  @default(0)
+  created_at DateTime @default(now())
+  meals        meals[]        @relation("UserMeals")
+  reservations reservations[] @relation("UserReservations")
+  reviews      reviews[]      @relation("UserReviews")
+}
+
+model meals {
+  id                String      @id
+  host_id           String
+  mode              MealMode
+  title             String
+  description       String?
+  photo_url         String?
+  price_cents       Int
+  qty_total         Int
+  qty_available     Int
+  address_text      String?
+  lat               Float?
+  lng               Float?
+  place_id          String?
+  start_time        DateTime?
+  end_time          DateTime?
+  geofence_radius_m Int?
+  status            MealStatus  @default(scheduled)
+  created_at        DateTime    @default(now())
+  updated_at        DateTime    @updatedAt
+  host users @relation(fields: [host_id], references: [id], name: "UserMeals")
+  reservations reservations[]
+  reviews reviews[]
+}
+
+model reservations {
+  id                String      @id
+  meal_id           String
+  buyer_id          String
+  qty               Int
+  beverage          Beverage?
+  mode              ReservationMode
+  price_cents_total Int
+  payment_status    PaymentStatus @default(pending)
+  qr_code           String?
+  pickup_code       String?
+  created_at        DateTime @default(now())
+  meal  meals @relation(fields: [meal_id], references: [id])
+  buyer users @relation(fields: [buyer_id], references: [id], name: "UserReservations")
+  payments payments[]
+}
+
+model payments {
+  id             String   @id
+  reservation_id String
+  psp_ref        String?
+  method         PayMethod
+  status         PaymentStatus @default(pending)
+  amount_cents   Int
+  created_at     DateTime @default(now())
+  reservation reservations @relation(fields: [reservation_id], references: [id])
+}
+
+model reviews {
+  id         String   @id
+  meal_id    String
+  buyer_id   String
+  rating     Int
+  comment    String?
+  created_at DateTime @default(now())
+  meal  meals @relation(fields: [meal_id], references: [id])
+  buyer users @relation(fields: [buyer_id], references: [id], name: "UserReviews")
+}
+
+model device_tokens {
+  id         String   @id
+  user_id    String
+  platform   String?
+  expo_token String   @unique
+  created_at DateTime @default(now())
+}
+
+enum Role { host buyer both }
+enum MealMode { scheduled instant }
+enum MealStatus { scheduled on_site live sold_out ended cancelled }
+enum Beverage { suco refrigerante agua agua_gas }
+enum ReservationMode { pickup social }
+enum PayMethod { pix }
+enum PaymentStatus { pending paid refunded cancelled }

@@ -1,0 +1,46 @@
+{
+  "services": [
+    {
+      "type": "web",
+      "name": "paradaboa-api",
+      "env": "node",
+      "buildCommand": "npm install && npx prisma generate",
+      "startCommand": "node src/server.js",
+      "autoDeploy": true,
+      "envVars": [
+        {
+          "key": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "key": "PORT",
+          "value": "10000"
+        },
+        {
+          "key": "DATABASE_URL",
+          "sync": true
+        },
+        {
+          "key": "AWS_REGION",
+          "sync": true
+        },
+        {
+          "key": "S3_BUCKET",
+          "sync": true
+        },
+        {
+          "key": "S3_PUBLIC_BASE",
+          "sync": true
+        },
+        {
+          "key": "AWS_ACCESS_KEY_ID",
+          "sync": true
+        },
+        {
+          "key": "AWS_SECRET_ACCESS_KEY",
+          "sync": true
+        }
+      ]
+    }
+  ]
+}
