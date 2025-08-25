@@ -25,8 +25,7 @@
     "expo-notifications": "~0.28.16",
     "expo-location": "~17.0.1",
     "expo-task-manager": "~11.0.1",
-    "expo-firebase-recaptcha": "~3.3.1",
-    "firebase": "^10.12.4"
+       "firebase": "^10.12.4"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6"
