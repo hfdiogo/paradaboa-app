@@ -1,19 +1,23 @@
-import { initializeApp } from "firebase/app";
+// APP/src/firebase/index.js
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, signInWithPhoneNumber } from "firebase/auth";
 
-// Configuração real do Firebase (vinda do Console)
-export const firebaseConfig = {
-  apiKey: "AIzaSyBfgfLE-VkuaHVandmtQjtf_HPcP4bmpIc",
-  authDomain: "parada-boa.firebaseapp.com",
-  projectId: "parada-boa",
-  storageBucket: "parada-boa.appspot.com",
-  messagingSenderId: "824921482345",
-  appId: "1:824921482345:web:d060634e5adeb2e579eef8"
+// ⬇️ Cole aqui a MESMA config do seu projeto no console do Firebase
+const firebaseConfig = {
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_PROJETO.firebaseapp.com",
+  projectId: "SEU_PROJECT_ID",
+  storageBucket: "SEU_BUCKET.appspot.com",
+  messagingSenderId: "SEU_SENDER_ID",
+  appId: "SEU_APP_ID",
 };
 
-// Inicializa Firebase
-const app = initializeApp(firebaseConfig);
+// Evita inicializar duas vezes em Hot Reload
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// Exporta Auth (login por SMS)
+// Exporte sempre o mesmo auth para o app inteiro
 export const auth = getAuth(app);
+
+// Reexporte helpers que você usar em telas
 export { signInWithPhoneNumber };
+
