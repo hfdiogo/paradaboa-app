@@ -1,7 +1,7 @@
 // APP/App.js
-import React from "react";
-import TestApiScreen from "./src/screens/TestApiScreen";
+import React from 'react';
+import AppNavigator from './src/navigation/AppNavigator'; // ou o nome que você usa
 
 export default function App() {
-  return <TestApiScreen />;
+  return <AppNavigator />;
 }
